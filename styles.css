@@ -55,11 +55,12 @@ svg { display: block; }
 }
 .skip-link:focus { width: auto; height: auto; clip: auto; z-index: 20; top: 8px; left: 8px; padding: 16px; background: var(--gold); color: var(--bg); }
 
-.site-shell { overflow: hidden; }
+.site-shell { overflow: clip; }
 .section-wrap { max-width: 1600px; margin: 0 auto; padding-left: var(--page-gutter); padding-right: var(--page-gutter); }
 .site-header {
-  position: relative;
-  z-index: 5;
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,6 +70,8 @@ svg { display: block; }
   margin: 0 auto;
   padding: 0 var(--page-gutter);
   border-bottom: 1px solid var(--line);
+  background: rgba(13, 9, 20, .94);
+  backdrop-filter: blur(16px);
 }
 .brand { display: inline-flex; align-items: center; gap: 16px; white-space: nowrap; }
 .brand-mark { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--gold); border-radius: 8px; background: var(--purple); font-size: 24px; font-weight: 700; letter-spacing: -3px; }
@@ -90,10 +93,11 @@ svg { display: block; }
 .eyebrow-divider { color: #8b739f; }
 h1, h2, h3, p, blockquote { margin-top: 0; }
 h1, h2, h3 { font-weight: 700; }
-h1 { margin: 32px 0 32px; font-size: clamp(64px, 6.8vw, 112px); line-height: 1.08; letter-spacing: -.07em; }
+h1 { margin: 32px 0 24px; font-size: clamp(48px, 5vw, 80px); line-height: 1.08; letter-spacing: -.06em; }
 .gold-period { color: var(--gold); }
-.hero-intro { max-width: 552px; margin-bottom: 40px; color: #c9bdd3; font-size: 16px; line-height: 1.9; }
-.hero-actions { display: flex; align-items: center; gap: 32px; }
+.quote-source { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: .04em; line-height: 1.5; }
+.quote-source:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hero-actions { display: flex; align-items: center; gap: 32px; margin-top: 40px; }
 .button { display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 56px; padding: 16px 24px; border: 1px solid transparent; border-radius: 8px; font-size: 13px; font-weight: 700; transition: transform .2s ease, background .2s ease, border-color .2s ease; }
 .button:hover { transform: translateY(-2px); }
 .button-primary { background: var(--gold); color: var(--bg); }
@@ -117,9 +121,11 @@ h1 { margin: 32px 0 32px; font-size: clamp(64px, 6.8vw, 112px); line-height: 1.0
 
 .timeline-section { padding-top: 96px; padding-bottom: 96px; border-top: 1px solid var(--line); }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 80px; margin-bottom: 48px; }
-.section-heading > div, .method-header { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.section-heading > div:first-child, .method-header { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
 .section-heading h2, .method-header h2 { max-width: 720px; margin: 0; font-size: clamp(36px, 4vw, 56px); line-height: 1.25; letter-spacing: -.055em; }
-.section-heading > p { max-width: 352px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.85; }
+.section-side-quote { display: flex; flex: 0 0 352px; flex-direction: column; align-items: flex-start; gap: 16px; }
+.section-side-quote p { margin: 0; color: var(--muted); font-size: 20px; font-weight: 700; line-height: 1.5; }
+#timeline, #archive, #method { scroll-margin-top: 88px; }
 .timeline-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .milestone-card { display: flex; flex-direction: column; align-items: flex-start; min-height: 336px; padding: 32px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); text-align: left; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
 .milestone-card:hover { border-color: var(--gold); background: var(--surface-raised); transform: translateY(-4px); }
@@ -191,16 +197,16 @@ h1 { margin: 32px 0 32px; font-size: clamp(64px, 6.8vw, 112px); line-height: 1.0
   .hero { display: block; min-height: 640px; padding-top: 112px; padding-bottom: 112px; }
   .hero-number { top: 40px; right: 40px; font-size: 280px; opacity: .6; }
   .hero-content { position: relative; z-index: 1; }
-  h1 { font-size: clamp(48px, 10vw, 72px); }
+  h1 { font-size: clamp(40px, 9vw, 64px); overflow-wrap: anywhere; }
   .hero-side { display: none; }
-  .hero-intro { font-size: 14px; }
   .hero-actions { flex-wrap: wrap; gap: 24px; }
   .overview { padding-top: 56px; padding-bottom: 64px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 0; }
   .stat { min-height: 96px; }
   .timeline-section, .archive-section, .method-section { padding-top: 72px; padding-bottom: 72px; }
   .section-heading { display: block; margin-bottom: 32px; }
-  .section-heading > p { margin-top: 24px; }
+  .section-side-quote { margin-top: 24px; }
+  #timeline, #archive, #method { scroll-margin-top: 72px; }
   .timeline-grid, .record-grid, .method-grid { grid-template-columns: 1fr; }
   .milestone-card { min-height: 280px; }
   .quote-section { padding-bottom: 72px; }
