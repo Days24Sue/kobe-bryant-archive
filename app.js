@@ -15,7 +15,9 @@
   countAll.textContent = records.length;
 
   function matches(record, query) {
-    if (activeFilter !== "all" && record.category !== activeFilter) return false;
+    if (activeFilter === "video_interviews") {
+      if (record.category !== "interviews" || !record.format.includes("video")) return false;
+    } else if (activeFilter !== "all" && record.category !== activeFilter) return false;
     if (!query) return true;
     return [record.title, record.date, record.source, record.description, record.format]
       .join(" ")
@@ -39,7 +41,10 @@
     card.setAttribute("aria-label", `${record.title}，在 ${record.source} 查看来源`);
 
     const meta = textElement("div", "record-meta", "");
-    meta.append(textElement("span", "", `${record.categoryLabel} / ${record.id}`));
+    const categoryLabel = record.category === "interviews" && record.format.includes("video")
+      ? "视频采访"
+      : record.categoryLabel;
+    meta.append(textElement("span", "", `${categoryLabel} / ${record.id}`));
     meta.append(textElement("span", "", record.date));
     card.append(meta);
     card.append(textElement("h3", "", record.title));
